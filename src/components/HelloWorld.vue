@@ -5,6 +5,7 @@
       {{ Test.current }}
       {{ Test.count }}
     </div>
+    <RouterView></RouterView>
   </div>
 </template>
 
