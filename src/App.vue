@@ -1,23 +1,36 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+  import MainPage from "./Views/MainPage/index.vue"
 </script>
 
 <template>
+  <!-- <MainPage></MainPage> -->
+  <div class="appLayout">
+    <RouterView></RouterView>
+  </div>
 
-  <HelloWorld msg="Vite + Vue" />
+
+
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<style>
+html,
+body,
+.el-container,#app{
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  /*margin-top: 60px;*/
+  height: 100%;
+  margin: 0px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.appLayout {
+  /* /display: grid; */
+  /* align-items: center; */
+  height: 100%;
+  width: 100%;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>
