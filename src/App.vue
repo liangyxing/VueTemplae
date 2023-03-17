@@ -12,25 +12,23 @@
 
 </template>
 
-<style>
-html,
-body,
-.el-container,#app{
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  /*margin-top: 60px;*/
-  height: 100%;
-  margin: 0px;
-}
+<style lang="less">
 
-.appLayout {
-  /* /display: grid; */
-  /* align-items: center; */
+#app ,body,html,.el-container{
+  margin: 0px;
   height: 100%;
   width: 100%;
+  padding: 0%;
+  max-width: 100%;
+}
+// body{
+  //   background-color: aquamarine;
+  // }
+// #app{
+  //   background-color: beige;
+  // }
+html{
+  background-color: black;
 }
 
 </style>

@@ -32,9 +32,5 @@ const handleSelect = (key: string, keyPath: string[]) => {
 </script>
 
 <style lang="less" scoped>
-div{
-	position : absolute;
-	width : 100%;
-	height : 100%;
-}
+
 </style>
