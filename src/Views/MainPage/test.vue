@@ -1,29 +1,49 @@
 <template>
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">Processing Center</el-menu-item>
-        <el-sub-menu index="2">
-            <template #title>Workspace</template>
-            <el-menu-item index="2-1">item one</el-menu-item>
-            <el-menu-item index="2-2">item two</el-menu-item>
-            <el-menu-item index="2-3">item three</el-menu-item>
-            <el-sub-menu index="2-4">
-                <template #title>item four</template>
-                <el-menu-item index="2-4-1">item one</el-menu-item>
-                <el-menu-item index="2-4-2">item two</el-menu-item>
-                <el-menu-item index="2-4-3">item three</el-menu-item>
-            </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="3" disabled>Info</el-menu-item>
-        <el-menu-item index="4">Orders</el-menu-item>
-    </el-menu>
+    <div>
+        <div>
+            <el-tabs v-model="activeIndex" type="border-card" @tab-click="tabClick" @tab-remove="tabRemove">
+                <el-tab-pane :key="item.name" v-for="(item, index) in openTab" :label="item.name" :name="item.path">
+                    <keep-alive>
+                        <router-view />
+                    </keep-alive>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
+        <div></div>
+    </div>
 </template>
+<script setup lang="ts">
+import { computed, ref, watch, onMounted } from 'vue'
+import { tabRoute } from '../../Store/TabRoute'
+import { useRoute, RouteLocationNormalized } from 'vue-router'
 
-<script lang="ts" setup>
-import { ref } from 'vue'
+let tabRemove = () => { }
 
-const activeIndex = ref('1')
-const activeIndex2 = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-}
+let tabClick = () => { }
+
+const tabRoutes = tabRoute()
+
+let openTab = computed(() => {
+    return tabRoutes.$state.openTab
+})
+
+var activeIndex = computed({
+    get: () => {
+        return tabRoutes.$state.activeIndex
+    },
+    set: (value: string) => {
+        tabRoutes.set_active_index(value)
+    },
+})
+var route = useRoute()
+watch(
+    () => route.path,
+    (newVal, oldVal) => {
+        console.log(`路由从 ${oldVal} 切换到 ${newVal}`)
+    },
+)
+
+onMounted(() => {
+
+})
 </script>

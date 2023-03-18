@@ -14,22 +14,24 @@ import { createRouter, createWebHistory, createWebHashHistory, createMemoryHisto
 // }
 // ]
 import mainPage from '../Views/MainPage/index.vue'
+import a from '../components/a.vue'
+import b from '../components/b.vue'
 const routes:Array<RouteRecordRaw>=[
     {
         path: '/',
         component: mainPage,
-        // children: [
-        //     {
-        //         // path: '/mainPage/home',
-        //         // name: 'home',
-        //         // component: home,
-        //     },
-        //     {
-        //         // path: '/mainPage/CustomerInfo',
-        //         // name: '客户信息',
-        //         // component: CustomerInfo,
-        //     },
-        // ],
+        children: [
+            {
+                path: '/a',
+                name: 'a',
+                component: a,
+            },
+            {
+                path: '/b',
+                name: 'b',
+                component: b,
+            },
+        ],
     }
 ]
 
