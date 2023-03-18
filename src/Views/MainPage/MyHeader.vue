@@ -1,6 +1,6 @@
 <template>
     <div style="width: 100%;">
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" router>
         <el-menu-item index="/a">Processing Center</el-menu-item>
         <el-sub-menu index="2">
             <template #title>Workspace</template>

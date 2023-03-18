@@ -5,10 +5,6 @@
                 <my-header />
             </div>
 
-            <div class="asides">
-                <my-aside />
-            </div>
-
             <div class="mains">
                 <my-main />
             </div>
@@ -31,9 +27,10 @@ import MyMain from "../MainPage/MyMain.vue";
 .myContainer {
     display: flex;
 
-    // grid-template-columns: repeat(24, 1fr);
-    //grid-template-rows: auto 0px auto;
+    grid-template-columns: repeat(24, 1fr);
+    grid-template-rows: auto 0px auto;
     width: 100%;
+    flex-direction: column;
 }
 
 .headers {
@@ -57,7 +54,5 @@ import MyMain from "../MainPage/MyMain.vue";
 .el-menu--collapse {
     width: 0px;
 }
-// #div{
-//     width: 100%;
-// }
+
 </style>

@@ -6,6 +6,7 @@
                 <component :is="tab.component" />
             </el-tab-pane>
         </el-tabs>
+        <RouterView></RouterView>
     </div>
 </template>
 
