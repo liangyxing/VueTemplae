@@ -1,10 +1,13 @@
 <script setup lang="ts">
   import MainPage from "./Views/MainPage/index.vue"
+  import login from "./components/login.vue";
 </script>
 
 <template>
   <!-- <MainPage></MainPage> -->
-  <div class="appLayout">
+
+  <div>
+    <!-- <login></login> -->
     <RouterView></RouterView>
   </div>
 

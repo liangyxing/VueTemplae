@@ -58,10 +58,10 @@ onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized)
 onMounted(
     ()=>{
 
-        tabsStore.setTagBull("/home")
-        tabsStore.addTab({route: '/home', name: 'home',path:"/home"})
-        tabsStore.setActiveTab('/home')
-        router.push('/home');
+        tabsStore.setTagBull("/mainPage/home")
+        tabsStore.addTab({route: '/mainPage/home', name: 'home',path:"/mainPage/home"})
+        tabsStore.setActiveTab('/mainPage/home')
+        router.push('/mainPage/home');
 
     }
 )
@@ -71,7 +71,7 @@ let tabClick=(tab: TabsPaneContext, event: Event)=>{
 }
 
 let removeTab = (tab: TabsPaneContext, event: Event) => {
-    if (String(tab)!="/home") {
+    if (String(tab)!="/mainPage/home") {
         tabsStore.removeTab(String(tab));
     } 
 };
