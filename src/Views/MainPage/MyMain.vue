@@ -1,9 +1,11 @@
 <template>
     <div id="app">
-        <el-tabs v-model:activeName="tabsStore.activeTab" type="card" closable>
-            <el-tab-pane v-for="tab in tabsStore.tabs" :key="tab.name" :name="tab.name" :label="tab.label"
-                @close="removeTab(tab.name)">
-                <component :is="tab.component" />
+        <el-tabs v-model:activeName="tabsStore.activeTab" type="card"  
+        @tab-click='tabClick'
+        @tab-remove="removeTab"
+        closable>
+            <el-tab-pane v-for="tab in tabsStore.tabs" :key="tab.name" :name="tab.path" :label="tab.name">
+                <!-- <component :is="tab.component" /> -->
             </el-tab-pane>
         </el-tabs>
         <RouterView></RouterView>
@@ -13,38 +15,65 @@
 <script setup lang="ts">
 import { defineComponent, onMounted, watch } from 'vue';
 import { useTabsStore } from '../../Store/TabRoute';
-import { useRoute, useRouter } from 'vue-router';
-
-
+import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
+import { RouteLocationNormalized } from 'vue-router'
+import type { TabsPaneContext } from 'element-plus'
 const tabsStore = useTabsStore();
 const router = useRouter();
 const route = useRoute();
 
-watch(
-    () => tabsStore.tabs,
-    (tabs) => {
-        const routeName = router.currentRoute.value.name;
-        const activeTab = tabs.find((tab: any) => tab.name === routeName);
-        if (activeTab) {
-            tabsStore.setActiveTab(activeTab.name);
-        } else if (tabs.length > 0) {
-            tabsStore.setActiveTab(tabs[0].name);
-        } else {
-            tabsStore.setActiveTab('');
-        }
-    }
-);
+// watch(
+//     () => tabsStore.tabs,
+//     (tabs) => {
+//         const routeName = router.currentRoute.value.name;
+//         const activeTab = tabs.find((tab: any) => tab.name === routeName);
+//         if (activeTab) {
+//             tabsStore.setActiveTab(activeTab.name);
+//         } else if (tabs.length > 0) {
+//             tabsStore.setActiveTab(tabs[0].name);
+//         } else {
+//             tabsStore.setActiveTab('');
+//         }
+//     }
+// );
 
-const removeTab = (tabName: string) => {
-    tabsStore.removeTab(tabName);
-    if (router.currentRoute.value.name === tabName) {
-        const lastTab = tabsStore.tabs[tabsStore.tabs.length - 1];
-        if (lastTab) {
-            router.push({ name: lastTab.name });
-        } else {
-            router.push('/');
-        }
+onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+    console.log(`路由从 ${from.fullPath} 切换到 ${to.fullPath}`)
+    let tabs = tabsStore.tabs
+    const routeName = router.currentRoute.value.name;
+    const activeTab = tabs.find((tab: any) => tab.name === to.name);
+
+    if (activeTab) {
+        tabsStore.setActiveTab(to.path);
+        console.log("if ")
+    } 
+    else {
+        
+        tabsStore.addTab(to);
+        tabsStore.setActiveTab(to.path);
+        console.log("else ")
     }
+})
+
+onMounted(
+    ()=>{
+
+        tabsStore.setTagBull("/home")
+        tabsStore.addTab({route: '/home', name: 'home',path:"/home"})
+        tabsStore.setActiveTab('/home')
+        router.push('/home');
+
+    }
+)
+
+let tabClick=(tab: TabsPaneContext, event: Event)=>{
+    router.push({path: String(tab.paneName)});
+}
+
+let removeTab = (tab: TabsPaneContext, event: Event) => {
+    if (String(tab)!="/home") {
+        tabsStore.removeTab(String(tab));
+    } 
 };
 
 

@@ -14,6 +14,7 @@ import { createRouter, createWebHistory, createWebHashHistory, createMemoryHisto
 // }
 // ]
 import mainPage from '../Views/MainPage/index.vue'
+import home from '../components/home.vue'
 import a from '../components/a.vue'
 import b from '../components/b.vue'
 const routes:Array<RouteRecordRaw>=[
@@ -30,6 +31,11 @@ const routes:Array<RouteRecordRaw>=[
                 path: '/b',
                 name: 'b',
                 component: b,
+            },
+            {
+                path: '/home',
+                name: 'home',
+                component: home,
             },
         ],
     }

@@ -15,7 +15,7 @@
             </el-sub-menu>
         </el-sub-menu>
         <el-menu-item index="3" disabled>Info</el-menu-item>
-        <el-menu-item index="4">Orders</el-menu-item>
+        <el-menu-item index="/b">Orders</el-menu-item>
     </el-menu>
     </div>
 
