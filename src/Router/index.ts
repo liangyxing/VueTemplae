@@ -13,12 +13,17 @@ import { createRouter, createWebHistory, createWebHashHistory, createMemoryHisto
 //     component: () => import('../components/b.vue')
 // }
 // ]
+
+
+
+
 import mainPage from '../Views/MainPage/index.vue'
 import home from '../components/home.vue'
 import a from '../components/a.vue'
 import b from '../components/b.vue'
 import login from '../components/login.vue'
-const routes:Array<RouteRecordRaw>=[
+import {useAuthStore} from"../Store/useAuthStore"
+const routes: Array<RouteRecordRaw> = [
     // {
     //     path: '/',
     //     component:login,
@@ -44,16 +49,22 @@ const routes:Array<RouteRecordRaw>=[
     //         },
     //         ],
     //     }]
-                
-            
-        
+
+
+
     // },
     {
         path: '/login',
-        component:login,
+        component: login,
     },
     {
-        path: '/mainPage',
+        path: '/',
+        redirect:"/mainPage"
+    },
+    {
+        
+        
+        path:"/mainPage",
         component: mainPage,
         children: [
             {
@@ -80,6 +91,20 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 })
+
+// let authStore=useAuthStore()
+// 添加全局前置守卫
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = localStorage.getItem('isAuthenticated')
+    if (to.path !== '/login' && !isAuthenticated) {
+        next('/login')
+    } 
+    else {
+        next()
+    }
+})
+
+
 
 //导出router
 export default router
