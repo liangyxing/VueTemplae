@@ -17,6 +17,8 @@ import { createRouter, createWebHistory, createWebHashHistory, createMemoryHisto
 
 
 
+
+
 import mainPage from '../Views/MainPage/index.vue'
 import home from '../components/home.vue'
 import a from '../components/a.vue'
@@ -24,35 +26,11 @@ import b from '../components/b.vue'
 import login from '../components/login.vue'
 import {useAuthStore} from"../Store/useAuthStore"
 const routes: Array<RouteRecordRaw> = [
-    // {
-    //     path: '/',
-    //     component:login,
-    //     children:[
-    //         {
-    //         path:"/mainPage"
-    //         ,component:mainPage
-    //         ,children:[
-    //                         {
-    //             path: '/mainPage/a',
-    //             name: 'a',
-    //             component: a,
-    //         },
-    //         {
-    //             path: '/mainPage/b',
-    //             name: 'b',
-    //             component: b,
-    //         },
-    //         {
-    //             path: '/mainPage/home',
-    //             name: 'home',
-    //             component: home,
-    //         },
-    //         ],
-    //     }]
 
-
-
-    // },
+    {
+        path: '/:catchAll(.*)',
+        redirect: '/mainPage'
+    },
     {
         path: '/login',
         component: login,
