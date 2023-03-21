@@ -22,7 +22,7 @@ import { createRouter, createWebHistory, createWebHashHistory, createMemoryHisto
 import mainPage from '../Views/MainPage/index.vue'
 import home from '../components/home.vue'
 import a from '../components/a.vue'
-import b from '../components/b.vue'
+import Dashboard from '../components/Dashboard.vue'
 import login from '../components/login.vue'
 import {useAuthStore} from"../Store/useAuthStore"
 const routes: Array<RouteRecordRaw> = [
@@ -51,9 +51,9 @@ const routes: Array<RouteRecordRaw> = [
                 component: a,
             },
             {
-                path: '/b',
-                name: 'b',
-                component: b,
+                path: '/Dashboard',
+                name: 'Dashboard',
+                component: Dashboard,
             },
             {
                 path: '/mainPage/home',
