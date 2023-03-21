@@ -24,12 +24,7 @@
   padding: 0%;
   max-width: 100%;
 }
-// body{
-  //   background-color: aquamarine;
-  // }
-// #app{
-  //   background-color: beige;
-  // }
+
 html{
   background-color: black;
 }
