@@ -3,11 +3,19 @@
         <button @click="QueryCollection"> gets</button>
     </div>
     <div style="margin-left: 20px;margin-right: 20px;">
-        <el-table :data="dataTAble" style="width: 100%">
+        <el-table :data="dataTAble.list" style="width: 100%">
             <el-table-column prop="name" label="Name" width="180" />
             <el-table-column prop="type" label="type" width="180" />
             <el-table-column prop="describe" label="describe" />
             <el-table-column prop="DateTime" label="DateTime" />
+            <el-table-column fixed="right" label="Operations" width="120">
+                <template #default="scope">
+                    <el-button link type="primary" size="small" @click="getName(scope.row)">
+                        Remove
+                    </el-button>
+                </template>
+            </el-table-column>
+
         </el-table>
     </div>
 
@@ -19,14 +27,25 @@
 import { map } from 'lodash';
 import Files from '../libs/axiosLibs/Files';
 import { timelineItemProps } from 'element-plus';
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import { reactify } from '@vueuse/shared';
+import { ElTable, ElTableColumn } from 'element-plus'
+import { column } from 'element-plus/es/components/table-v2/src/common';
+
 let FileService = new Files()
-let names = ref<any[]>([])
-var dataTAble = ref<any[]>([])
+type myList =
+    {
+        list: any[]
+    }
+// var dataTAble = ref<any[]>([])
+var dataTAble = reactive<myList>({
+    list: []
+})
+
 let QueryCollection = async () => {
 
     var data = await FileService.QueryAllColletionInfo()
-
+    var tempList: any[] = []
     for (var item in data) {
         for (let key in data[item]) {
             var res: any[] = data[item][key]
@@ -41,12 +60,17 @@ let QueryCollection = async () => {
                 obj[key] = value
                 return obj
             }, {})
-            dataTAble.value.push(myobject)
-            console.log(myobject)
+            tempList.push(myobject)
+            // console.log(myobject)
         }
     }
     // return dataTAble
-    console.log(dataTAble)
+    dataTAble.list = tempList
+    // console.log(dataTAble)
+}
+
+const getName=(row: any)=>{
+    console.log(row["name"])
 }
 
 // const tableData = [

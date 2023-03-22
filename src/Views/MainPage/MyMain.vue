@@ -5,7 +5,7 @@
         @tab-remove="removeTab"
         closable>
             <el-tab-pane v-for="tab in tabsStore.tabs" :key="tab.name" :name="tab.path" :label="tab.name">
-                <!-- <component :is="tab.component" /> -->
+                <component :is="tab.component" />
             </el-tab-pane>
         </el-tabs>
         <RouterView></RouterView>
