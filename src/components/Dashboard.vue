@@ -9,10 +9,16 @@
             <el-table-column prop="describe" label="describe" />
             <el-table-column prop="DateTime" label="DateTime" />
             <el-table-column fixed="right" label="Operations" width="120">
-                <template #default="scope">
-                    <el-button link type="primary" size="small" @click="getName(scope.row)">
-                        Remove
-                    </el-button>
+                <template #default="scope" >
+                    <div style="display: flex;">
+                        <el-button link type="primary" size="small" @click="UpdateFileDescrip(scope.row)">
+                            update
+                        </el-button>
+                        <el-button link type="primary" size="small" @click="DeleteFile(scope.row)">
+                            Remove
+                        </el-button>
+                    </div>
+
                 </template>
             </el-table-column>
 
@@ -26,11 +32,8 @@
 <script lang="ts" setup>
 import { map } from 'lodash';
 import Files from '../libs/axiosLibs/Files';
-import { timelineItemProps } from 'element-plus';
 import { reactive, ref } from 'vue'
-import { reactify } from '@vueuse/shared';
 import { ElTable, ElTableColumn } from 'element-plus'
-import { column } from 'element-plus/es/components/table-v2/src/common';
 
 let FileService = new Files()
 type myList =
@@ -69,30 +72,13 @@ let QueryCollection = async () => {
     // console.log(dataTAble)
 }
 
-const getName=(row: any)=>{
+const DeleteFile = (row: any) => {
     console.log(row["name"])
 }
 
-// const tableData = [
-//     {
-//         date: '2016-05-03',
-//         name: 'Tom',
-//         address: 'No. 189, Grove St, Los Angeles',
-//     },
-//     {
-//         date: '2016-05-02',
-//         name: 'Tom',
-//         address: 'No. 189, Grove St, Los Angeles',
-//     },
-//     {
-//         date: '2016-05-04',
-//         name: 'Tom',
-//         address: 'No. 189, Grove St, Los Angeles',
-//     },
-//     {
-//         date: '2016-05-01',
-//         name: 'Tom',
-//         address: 'No. 189, Grove St, Los Angeles',
-//     },
-// ]
+const UpdateFileDescrip = (row: any) => {
+    console.log(row["name"])
+
+}
+
 </script>
