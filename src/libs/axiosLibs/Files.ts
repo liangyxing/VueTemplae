@@ -10,16 +10,21 @@ class Files implements IFiles{
     private QueryData=[]
     
     private async getColletionInfo(){
+        
         return await request({
             method: 'get'
             , url: "api/FileAppServices/QueryAllColletionInfo"
         })
     }
 
-    private async postUpdateFile()
+    private async postUpdateFile(collectionName:string,type:string,describe:string)
     {
+
+
+        // urls="api/FileAppServices/UpdateFileInfo?collectionName=${}&type=KEBA&describe=modbus%20tcp"
         return await request({
-            method:"post",
+            method:"post",          
+            url:`api/FileAppServices/UpdateFileInfo?collectionName=${collectionName}&type=${type}&describe=${describe}`
             
         })
     }
@@ -46,8 +51,8 @@ class Files implements IFiles{
         return this.QueryData;
     }
     
-    async Update(){
-
+    async UpdateFileInfo(collectionName:string,type:string,describe:string){
+        return await this.postUpdateFile(collectionName,type,describe)
     }
     
 }

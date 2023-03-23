@@ -1,6 +1,6 @@
 interface IFiles{
     QueryAllColletionInfo:()=>void
-    Update:()=>void
+    UpdateFileInfo:(collectionName:string,type:string,describe:string)=>void
 }
 
 export default IFiles
