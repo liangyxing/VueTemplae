@@ -11,7 +11,7 @@ const Login = (): Promise<Result> => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
-                name: '小满',
+                name: '',
                 isChu: true
             })
         }, 3000)
