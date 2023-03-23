@@ -15,6 +15,15 @@ class Files implements IFiles{
             , url: "api/FileAppServices/QueryAllColletionInfo"
         })
     }
+
+    private async postUpdateFile()
+    {
+        return await request({
+            method:"post",
+            
+        })
+    }
+
     async QueryAllColletionInfo(){
         let res= await this.getColletionInfo().then((data) => {
             //List<Dictionary<string, List<Dictionary<string, string>>>>
@@ -37,6 +46,9 @@ class Files implements IFiles{
         return this.QueryData;
     }
     
+    async Update(){
+
+    }
     
 }
 
