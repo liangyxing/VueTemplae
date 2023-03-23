@@ -53,7 +53,10 @@ const dialogdatas= reactive<dialogdata>({
     describe:""
 })
 
-
+const comfirmBtn=()=>{
+    
+    dialogFormVisible.value = false
+}
 
 </script>
 <style scoped>
