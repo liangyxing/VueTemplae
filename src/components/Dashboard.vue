@@ -24,7 +24,10 @@
 
         </el-table>
     </div>
-
+    <!-- update 弹窗 -->
+    <div>
+        <dialog-form :name="dialong.Name " :type="dialong.type" :describe="dialong.describe"></dialog-form> 
+    </div>
 
     <!-- {{ dataTAble }} -->
 </template>
@@ -35,7 +38,22 @@ import Files from '../libs/axiosLibs/Files';
 import { reactive, ref } from 'vue'
 import { ElTable, ElTableColumn } from 'element-plus'
 
+import DialogForm from './DialogForm.vue';
+
+
+import { getCurrentInstance } from 'vue'
+const instance = getCurrentInstance();
+const emit1 = (num:any) => {
+    instance?.proxy?.$Bus.emit('isShowUpdateDialog',num)
+}
+
+
+
+
+
 let FileService = new Files()
+
+
 type myList =
     {
         list: any[]
@@ -76,8 +94,23 @@ const DeleteFile = (row: any) => {
     console.log(row["name"])
 }
 
+type dialogdata={
+    Name:string
+    type:string
+    describe:string
+    
+}
+let dialong=reactive<dialogdata>({
+    Name:"",
+    type:"",
+    describe:""
+})
 const UpdateFileDescrip = (row: any) => {
     console.log(row["name"])
+    dialong.Name=row["name"]
+    dialong.type=row["type"]
+    dialong.describe=row["describe"]
+    emit1(dialong)
 
 }
 

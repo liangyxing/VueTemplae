@@ -1,21 +1,17 @@
 <template>
     <!-- Form -->
-    <el-button text @click="dialogFormVisible = true">
-        open a Form nested Dialog
-    </el-button>
+    <!-- :title="dialogdatas.Name " -->
+    <el-dialog v-model="dialogFormVisible" >
+        <h1>{{ dialogdatas.Name}}</h1>
+        <el-form-item label="type" :label-width="formLabelWidth">
+            <el-input v-model="dialogdatas.type" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="describe" :label-width="formLabelWidth">
+            <el-input v-model="dialogdatas.describe" autocomplete="off" />
+        </el-form-item>
 
-    <el-dialog v-model="dialogFormVisible" title="Shipping address">
-        <el-form :model="form">
-            <el-form-item label="Promotion name" :label-width="formLabelWidth">
-                <el-input v-model="form.name" autocomplete="off" />
-            </el-form-item>
-            <el-form-item label="Zones" :label-width="formLabelWidth">
-                <el-select v-model="form.region" placeholder="Please select a zone">
-                    <el-option label="Zone No.1" value="shanghai" />
-                    <el-option label="Zone No.2" value="beijing" />
-                </el-select>
-            </el-form-item>
-        </el-form>
+
+
         <template #footer>
             <span class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">Cancel</el-button>
@@ -28,20 +24,36 @@
 </template>
 
 <script lang="ts" setup>
+
 import { reactive, ref } from 'vue'
+import { getCurrentInstance } from 'vue'
+
 const dialogFormVisible = ref(false)
+const instance = getCurrentInstance()
+instance?.proxy?.$Bus.on('isShowUpdateDialog', (num:any) => {
+    dialogFormVisible.value = true
+    dialogdatas.Name=num["Name"]
+    dialogdatas.type=num["type"]
+    dialogdatas.describe=num["describe"]
+
+})
+
+
 const formLabelWidth = '140px'
 
-const form = reactive({
-    name: '',
-    region: '',
-    date1: '',
-    date2: '',
-    delivery: false,
-    type: [],
-    resource: '',
-    desc: '',
+type dialogdata={
+    Name:string
+    type:string
+    describe:string
+    
+}
+const dialogdatas= reactive<dialogdata>({
+    Name:"",
+    type:"",
+    describe:""
 })
+
+
 
 </script>
 <style scoped>
@@ -61,4 +73,3 @@ const form = reactive({
     margin-right: 10px;
 }
 </style>
-  
