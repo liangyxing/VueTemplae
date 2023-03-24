@@ -1,26 +1,43 @@
 <template>
-    <!-- Form -->
-    <!-- :title="dialogdatas.Name " -->
-    <el-dialog v-model="dialogFormVisible" >
-        <h1>{{ dialogdatas.Name}}</h1>
+    <div>
+        <el-dialog v-model="dialogFormVisible" >
+        <el-form-item label="Name" :label-width="formLabelWidth">
+            <el-input v-model="dialogdatas.Name" autocomplete="off" />
+        </el-form-item>
+
         <el-form-item label="type" :label-width="formLabelWidth">
             <el-input v-model="dialogdatas.type" autocomplete="off" />
         </el-form-item>
+
         <el-form-item label="describe" :label-width="formLabelWidth">
             <el-input v-model="dialogdatas.describe" autocomplete="off" />
         </el-form-item>
-
-
-
-        <template #footer>
-            <span class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">Cancel</el-button>
-                <el-button type="primary" @click="comfirmBtn">
-                    Confirm
-                </el-button>
-            </span>
+        <div>
+        <el-upload ref="uploadRef" class="upload-demo" 
+        action=url
+        :auto-upload="false">
+        <template #trigger>
+            <el-button type="primary">select file</el-button>
         </template>
+
+        <el-button class="ml-3" type="success" @click="submitUpload">
+            upload to server
+        </el-button>
+
+        <template #tip>
+            <div class="el-upload__tip">
+                jpg/png files with a size less than 500kb
+            </div>
+        </template>
+    </el-upload>
+    </div>
+
+
     </el-dialog>
+
+    </div>
+
+
 </template>
 
 <script lang="ts" setup>
@@ -28,14 +45,15 @@
 import { reactive, ref } from 'vue'
 import { getCurrentInstance } from 'vue'
 import Files from '../libs/axiosLibs/Files';
+import type { UploadInstance } from 'element-plus'
 const dialogFormVisible = ref(false)
 const instance = getCurrentInstance()
 
-instance?.proxy?.$Bus.on('isShowUpdateDialog', (num:any) => {
+instance?.proxy?.$Bus.on('isShowFileInfoUpdateDialog', () => {
     dialogFormVisible.value = true
-    dialogdatas.Name=num["Name"]
-    dialogdatas.type=num["type"]
-    dialogdatas.describe=num["describe"]
+    // dialogdatas.Name=num["Name"]
+    // dialogdatas.type=num["type"]
+    // dialogdatas.describe=num["describe"]
 
 })
 
@@ -62,6 +80,17 @@ const comfirmBtn=async()=>{
     await files.UpdateFileInfo(dialogdatas.Name,dialogdatas.type,dialogdatas.describe)
     emit1()
     dialogFormVisible.value = false
+}
+
+
+let url=ref(`
+api/FileAppServices/Upload?collectionNsame=${dialogdatas.Name}&type=${dialogdatas.type}&describe=${dialogdatas.describe}`
+)
+
+const uploadRef = ref<UploadInstance>()
+
+const submitUpload = () => {
+    uploadRef.value!.submit()
 }
 
 </script>

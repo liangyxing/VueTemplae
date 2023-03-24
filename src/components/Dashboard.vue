@@ -1,6 +1,7 @@
 <template>
     <div>
-        <button @click="QueryCollection"> gets</button>
+        <el-button type="primary" @click="uploadFormBtn">uploadFile</el-button>
+        <el-button type="primary" @click="QueryCollection"> refresh</el-button>
     </div>
     <div style="margin-left: 20px;margin-right: 20px;">
         <el-table :data="dataTAble.list" style="width: 100%">
@@ -27,6 +28,7 @@
     <!-- update 弹窗 -->
     <div>
         <dialog-form :name="dialong.Name " :type="dialong.type" :describe="dialong.describe"></dialog-form> 
+        <uploadform></uploadform>
     </div>
 
     <!-- {{ dataTAble }} -->
@@ -37,7 +39,7 @@ import { map } from 'lodash';
 import Files from '../libs/axiosLibs/Files';
 import { reactive, ref } from 'vue'
 import { ElTable, ElTableColumn } from 'element-plus'
-
+import uploadform   from "../components/uploadForm.vue"
 import DialogForm from './DialogForm.vue';
 
 
@@ -46,9 +48,13 @@ const instance = getCurrentInstance();
 const emit1 = (num:any) => {
     instance?.proxy?.$Bus.emit('isShowUpdateDialog',num)
 }
+const emit2 = () => {
+    instance?.proxy?.$Bus.emit('isShowFileInfoUpdateDialog')
+}
 
-
-
+instance?.proxy?.$Bus.on('updatePage', () => {
+    QueryCollection()
+})
 
 
 let FileService = new Files()
@@ -111,7 +117,10 @@ const UpdateFileDescrip = (row: any) => {
     dialong.type=row["type"]
     dialong.describe=row["describe"]
     emit1(dialong)
+}
 
+const uploadFormBtn=()=>{
+    emit2()
 }
 
 </script>
