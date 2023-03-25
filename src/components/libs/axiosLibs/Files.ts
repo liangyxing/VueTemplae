@@ -54,20 +54,6 @@ class Files implements IFiles{
     async UpdateFileInfo(collectionName:string,type:string,describe:string){
         return await this.postUpdateFile(collectionName,type,describe)
     }
-
-    async UpLoadFile(collectionName:string,type:string,describe:string){
-        return await request({
-            method:'post',
-            url:`api/FileAppServices/Upload?collectionNsame=${collectionName}&type=${type}&describe=${describe}`
-        })
-    }
-
-    async DeletedFile(collectionName:string){
-        return await request({
-            method:"post",
-            url:`api/FileAppServices/Delete?collectionName=${collectionName}`
-        })
-    }
     
 }
 

@@ -3,7 +3,7 @@
         <el-button type="primary" @click="uploadFormBtn">uploadFile</el-button>
         <el-button type="primary" @click="QueryCollection"> refresh</el-button>
     </div>
-    <div style="margin-left: 20px;margin-right: 20px;">
+    <div style="margin-left: 20px;margin-right: 20px;" v-loading="isLoadding">
         <el-table :data="dataTAble.list" style="width: 100%">
             <el-table-column prop="name" label="Name" width="180" />
             <el-table-column prop="type" label="type" width="180" />
@@ -45,6 +45,8 @@ import DialogForm from './DialogForm.vue';
 
 import { getCurrentInstance } from 'vue'
 const instance = getCurrentInstance();
+const isLoadding=ref(false)
+
 const emit1 = (num:any) => {
     instance?.proxy?.$Bus.emit('isShowUpdateDialog',num)
 }
@@ -64,7 +66,6 @@ type myList =
     {
         list: any[]
     }
-// var dataTAble = ref<any[]>([])
 var dataTAble = reactive<myList>({
     list: []
 })
@@ -96,8 +97,19 @@ let QueryCollection = async () => {
     // console.log(dataTAble)
 }
 
-const DeleteFile = (row: any) => {
+const DeleteFile = async(row: any) => {
     console.log(row["name"])
+    isLoadding.value=true
+    let res=await FileService.DeletedFile(row["name"])
+    console.log(res.data)
+    
+
+    if(res.data==true)
+    {
+        await QueryCollection()
+        isLoadding.value=false
+    }
+
 }
 
 type dialogdata={
