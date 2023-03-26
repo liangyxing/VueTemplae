@@ -137,6 +137,7 @@ const UpdateFileDescrip = (row: any) => {
 
 const DownloadFile=async(row:any)=>{
     console.log(row["name"])
+    
     await FileService.Download(row["name"])
 }
 
