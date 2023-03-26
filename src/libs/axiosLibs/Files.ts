@@ -68,6 +68,12 @@ class Files implements IFiles{
             url:`api/FileAppServices/Delete?collectionName=${collectionName}`
         })
     }
+    async Download(collectionName:string){
+        return  request({
+            method:"get",
+            url:`api/FileAppServices/DownLoad?collectionName=${collectionName}`
+        })
+    }
     
 }
 

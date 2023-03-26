@@ -11,12 +11,16 @@
             <el-table-column prop="DateTime" label="DateTime" />
             <el-table-column fixed="right" label="Operations" width="120">
                 <template #default="scope" >
-                    <div style="display: flex;">
+                    <div >
                         <el-button link type="primary" size="small" @click="UpdateFileDescrip(scope.row)">
                             update
                         </el-button>
                         <el-button link type="primary" size="small" @click="DeleteFile(scope.row)">
                             Remove
+                        </el-button>
+
+                        <el-button link type="primary" size="small" @click="DownloadFile(scope.row)">
+                            Download
                         </el-button>
                     </div>
 
@@ -129,6 +133,11 @@ const UpdateFileDescrip = (row: any) => {
     dialong.type=row["type"]
     dialong.describe=row["describe"]
     emit1(dialong)
+}
+
+const DownloadFile=async(row:any)=>{
+    console.log(row["name"])
+    await FileService.Download(row["name"])
 }
 
 const uploadFormBtn=()=>{
