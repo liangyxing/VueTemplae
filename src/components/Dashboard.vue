@@ -11,7 +11,7 @@
             <el-table-column prop="DateTime" label="DateTime" />
             <el-table-column fixed="right" label="Operations" width="120">
                 <template #default="scope" >
-                    <div >
+                    <div style="display: flex; flex-direction: column;">
                         <el-button link type="primary" size="small" @click="UpdateFileDescrip(scope.row)">
                             update
                         </el-button>
